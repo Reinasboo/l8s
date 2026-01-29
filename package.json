@@ -1,0 +1,29 @@
+{
+  "name": "i8-ultra-smartwatch-landing",
+  "version": "1.0.0",
+  "description": "High-converting landing page for I8 Ultra Smartwatch",
+  "private": true,
+  "author": "I8 Ultra",
+  "license": "MIT",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "build": "echo 'No build needed - static site'",
+    "deploy": "vercel",
+    "start": "python -m http.server 8000"
+  },
+  "keywords": [
+    "smartwatch",
+    "landing-page",
+    "conversion-optimized",
+    "mobile-first",
+    "whatsapp",
+    "e-commerce"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "not dead"
+  ]
+}

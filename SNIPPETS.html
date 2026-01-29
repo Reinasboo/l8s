@@ -1,0 +1,300 @@
+<!-- 
+  I8 ULTRA SMARTWATCH LANDING PAGE
+  HTML SNIPPETS FOR CUSTOMIZATION
+  
+  Copy and paste these snippets into index.html as needed
+-->
+
+<!-- ===== GOOGLE ANALYTICS SNIPPET ===== -->
+<!--
+  Add this to the <head> section of index.html
+  Replace GA_MEASUREMENT_ID with your actual ID from Google Analytics
+-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID');
+</script>
+
+<!-- ===== FACEBOOK PIXEL SNIPPET ===== -->
+<!--
+  Add this to the <head> section of index.html
+  Replace PIXEL_ID with your actual Facebook Pixel ID
+-->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', 'PIXEL_ID');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1" /></noscript>
+
+<!-- ===== TAWK LIVE CHAT SNIPPET ===== -->
+<!--
+  Add this before closing </body> tag for live chat support
+  Replace PROPERTY_ID with your Tawk property ID
+-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/PROPERTY_ID/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+
+<!-- ===== HOTJAR ANALYTICS SNIPPET ===== -->
+<!--
+  Add this to the <head> section for heatmaps and recordings
+  Replace HOTJAR_ID with your Hotjar site ID
+-->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:HOTJAR_ID,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
+<!-- ===== INTERCOM CUSTOMER MESSAGING SNIPPET ===== -->
+<!--
+  Add this before closing </body> tag for customer support
+  Replace APP_ID with your Intercom app ID
+-->
+<script>
+  window.intercomSettings = {
+    api_base: "https://api-iam.intercom.io",
+    app_id: "APP_ID"
+  };
+</script>
+<script async src="https://js.intercomcdn.com/messenger.js"></script>
+
+<!-- ===== CONVERSION PIXEL SNIPPETS ===== -->
+<!--
+  Add these for tracking specific events
+-->
+
+<!-- Form Submission Tracking -->
+<script>
+  document.getElementById('orderForm').addEventListener('submit', function(e) {
+    // Facebook Pixel
+    fbq('track', 'Lead', {
+      content_name: 'Order Form Submission',
+      content_type: 'product',
+      value: 0,
+      currency: 'NGN'
+    });
+    
+    // Google Analytics
+    gtag('event', 'form_submit', {
+      'event_category': 'engagement',
+      'event_label': 'order_form'
+    });
+  });
+</script>
+
+<!-- Button Click Tracking -->
+<script>
+  document.querySelector('a[href*="wa.me"]').addEventListener('click', function() {
+    fbq('track', 'InitiateCheckout');
+    gtag('event', 'begin_checkout', {
+      'value': 0,
+      'currency': 'NGN'
+    });
+  });
+</script>
+
+<!-- ===== CUSTOM DOMAIN SETUP ===== -->
+<!--
+  Instructions for setting up custom domain on Vercel:
+  
+  1. Go to Vercel Dashboard
+  2. Select your project
+  3. Go to Settings > Domains
+  4. Add your domain name
+  5. Update DNS records at your domain registrar:
+     - CNAME: yourdomain.com -> cname.vercel.sh
+     - Or use nameservers provided by Vercel
+  6. Wait for DNS propagation (5-48 hours)
+  7. Enable automatic HTTPS certificate
+-->
+
+<!-- ===== EMAIL NOTIFICATION SNIPPET ===== -->
+<!--
+  Send order notifications via email
+  Replace with your email service (SendGrid, Mailgun, etc.)
+-->
+<script>
+  function sendEmailNotification(name, phone) {
+    // Using SendGrid API
+    const email = {
+      personalizations: [{
+        to: [{ email: 'your-email@example.com' }],
+        subject: `New Order from ${name}`
+      }],
+      from: { email: 'noreply@yourdomain.com' },
+      content: [{
+        type: 'text/html',
+        value: `
+          <h2>New I8 Ultra Order</h2>
+          <p><strong>Customer Name:</strong> ${name}</p>
+          <p><strong>Phone:</strong> +234${phone}</p>
+          <p>Customer has been sent to WhatsApp for order completion.</p>
+        `
+      }]
+    };
+    
+    // Send via API (requires backend)
+    fetch('/api/send-email', {
+      method: 'POST',
+      body: JSON.stringify(email)
+    });
+  }
+</script>
+
+<!-- ===== DARK MODE TOGGLE SNIPPET ===== -->
+<!--
+  Optional: Add dark/light mode toggle
+  Add this button to navbar:
+-->
+<button id="themeToggle" class="p-2 rounded-lg bg-blue-500/20 hover:bg-blue-500/40 transition">
+  <i class="fas fa-moon"></i>
+</button>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const htmlElement = document.documentElement;
+  
+  // Check saved theme preference
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  if (savedTheme === 'light') {
+    htmlElement.classList.add('light-mode');
+    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+  }
+  
+  // Toggle theme
+  themeToggle.addEventListener('click', () => {
+    htmlElement.classList.toggle('light-mode');
+    const newTheme = htmlElement.classList.contains('light-mode') ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+    themeToggle.innerHTML = newTheme === 'light' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+  });
+</script>
+
+<!-- ===== STRUCTURED DATA (SCHEMA.ORG) ===== -->
+<!--
+  Add this to <head> for better SEO and rich snippets
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "I8 Ultra Smartwatch",
+  "description": "Premium smartwatch with health tracking, fitness monitoring, and Bluetooth calling",
+  "brand": {
+    "@type": "Brand",
+    "name": "I8 Ultra"
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "NGN",
+    "lowPrice": "25000",
+    "highPrice": "35000",
+    "offerCount": 1
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "ratingCount": "5000"
+  },
+  "image": "https://yourdomain.com/assets/images/product.jpg"
+}
+</script>
+
+<!-- ===== SERVICE WORKER REGISTRATION ===== -->
+<!--
+  For offline support and PWA features
+  Add before closing </body>
+-->
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(registration => {
+      console.log('Service Worker registered', registration);
+    }).catch(error => {
+      console.log('Service Worker registration failed:', error);
+    });
+  }
+</script>
+
+<!-- ===== CRITICAL CSS INLINING ===== -->
+<!--
+  For faster first contentful paint, inline critical CSS
+  This is optional but recommended for production
+-->
+<style>
+  /* Critical above-the-fold styles only */
+  body {
+    background: linear-gradient(to bottom, #0f172a, #1e1b4b, #0f172a);
+    color: white;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(15, 23, 42, 0.8);
+    z-index: 40;
+  }
+  
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.75rem);
+    font-weight: bold;
+  }
+</style>
+
+<!-- ===== PRELOAD CRITICAL RESOURCES ===== -->
+<!--
+  Add to <head> to preload fonts and critical images
+-->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style">
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+<link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+
+<!-- ===== DNS PREFETCH ===== -->
+<!--
+  Speed up DNS resolution for external resources
+-->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://connect.facebook.net">
+
+<!-- ===== NOTES ===== -->
+<!--
+  For implementation questions, refer to:
+  - README.md for detailed documentation
+  - DEPLOY.md for deployment instructions
+  - script.js for JavaScript function signatures
+  
+  Remember to:
+  1. Test all snippets before deploying
+  2. Update API keys and IDs
+  3. Monitor analytics after implementation
+  4. Keep backup of original files
+-->
